@@ -10,7 +10,6 @@ use app\model\CategoryModel;
 
 class Menu{
     public $data;
-    public $menuHTML;
 
     public function __construct(){
         $this->run();
@@ -20,7 +19,7 @@ class Menu{
     public function run(){
         //$this->data = R::getAssoc('SELECT * FROM category');
         $this->data = R::findAll('category');
-        //debug($this->data);
+
         echo $this->getMenuHTML();
     }
 

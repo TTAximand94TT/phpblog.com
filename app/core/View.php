@@ -19,6 +19,10 @@ class View
     public $view;
 
     /**
+     * @var array
+     */
+    public array $scripts = [];
+    /**
      * current template
      * @var
      */
@@ -43,7 +47,6 @@ class View
             extract($vars);
         }
         $fileView = ROOT.'app/view/'.$this->route['prefix'].$this->route['controller'].'/'.$this->view.'.php';      //тут баг, надо поправить!
-        //if($this->route['prefix']=='admin')
         ///////////////////////////////////////////////
         ob_start('ob_gzhandler');
         header("Content-Encoding: gzip");
@@ -62,33 +65,34 @@ class View
                 $fileLayout = ROOT.'app/view/layouts/'.$this->layout.'.php';
             }
             if(file_exists($fileLayout)){
-                require($fileLayout);
+                $content = $this->replaceScripts($content);
+                $scripts = [];
+                if(!empty($this->scripts[0])){
+                    $scripts = $this->scripts[0];
+                }
+                require ($fileLayout);
             }else{
                 throw new \Exception("View $fileLayout - not found", 404);
             }
         }
     }
 
-    /*
-    protected function compressPage($buffer){
-        $search = [
-            "/(\n)+/",
-            "/\r\n+/",
-            "/\n(\t)+/",
-            "/\n(\ )+/",
-            "/\>(\n)+</",
-            "/\>\r\n</",
-        ];
-        $replace = [
-            "\n",
-            "\n",
-            "\n",
-            "\n",
-            "><",
-            "><",
-        ];
 
-        return preg_replace($search, $replace, $buffer);
+    protected function replaceScripts($content){
+        $pattern = "@<script.*?>.*?</script>@si";
+        preg_match_all($pattern, $content, $this->scripts);
+        if(!empty($this->scripts)){
+            $content = preg_replace($pattern, '', $content);
+        }
+        return $content;
+
+    }
+
+    /*
+    protected function scriptsLoader($scripts){
+
     }
     */
+
+
 }

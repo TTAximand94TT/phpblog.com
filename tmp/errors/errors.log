@@ -1980,3 +1980,39 @@ Error message: Array to string conversion,
 in file: D:\OpenServer\domains\blog.mvc.com\app\view\widgets\menu.php, on line: 2 
                                      
 <----------------------------------------------------------------------->
+ 2022-01-26 23-25-45 
+                                     
+Error code: 2. 
+                                     
+Error message: foreach() argument must be of type array|object, string given,  
+                                     
+in file: D:\OpenServer\domains\phpblog.com\app\view\layouts\default.php, on line: 49 
+                                     
+<----------------------------------------------------------------------->
+ 2022-01-26 23-35-39 
+                                     
+Error code: 2. 
+                                     
+Error message: foreach() argument must be of type array|object, string given,  
+                                     
+in file: D:\OpenServer\domains\phpblog.com\app\view\layouts\default.php, on line: 49 
+                                     
+<----------------------------------------------------------------------->
+ 2022-01-26 23-39-14 
+                                     
+Error code: 2. 
+                                     
+Error message: Array to string conversion,  
+                                     
+in file: D:\OpenServer\domains\phpblog.com\app\view\layouts\default.php, on line: 50 
+                                     
+<----------------------------------------------------------------------->
+ 2022-01-26 23-39-14 
+                                     
+Error code: 2. 
+                                     
+Error message: Array to string conversion,  
+                                     
+in file: D:\OpenServer\domains\phpblog.com\app\view\layouts\default.php, on line: 50 
+                                     
+<----------------------------------------------------------------------->
