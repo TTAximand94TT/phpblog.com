@@ -44,48 +44,43 @@
     </div>
 </article>
 
-<!-- tt -->
+<!-- tinymce -->
 <script src="https://cdn.tiny.cloud/1/0fvm7vib6z76x9zpuzgorgy61228fhrs30cv374tp9fula0p/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
         selector: '#editor',
         height: 500,
-        plugins: 'image code',
-        toolbar: 'undo redo | image code',
+        plugins: 'image code fullscreen media preview',
+        toolbar: 'undo redo | link image | code | fullscreen | image imagetools | media | preview',
+        // enable title field in the Image dialog
+        image_title: true,
+        // enable automatic uploads of images represented by blob or data URIs
+        automatic_uploads: true,
+        // add custom filepicker only to Image dialog
+        file_picker_types: 'image',
+        file_picker_callback: function(cb, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
 
-        // without images_upload_url set, Upload tab won't show up
-        images_upload_url: 'file/upload/',  // php url files/uploaded/
+            input.onchange = function() {
+                var file = this.files[0];
+                var reader = new FileReader();
 
-        // override default upload handler to simulate successful upload
-        images_upload_handler: function (blobInfo, success, failure) {
-            let xhr, formData;
+                reader.onload = function () {
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
 
-            xhr = new XMLHttpRequest();
-            xhr.withCredentials = false;
-            xhr.open('POST', 'file/upload/');  // php url /public/files/img/posts/posts_img/
-
-            xhr.onload = function() {
-                let json;
-
-                if (xhr.status !== 200) {
-                    failure('HTTP Error: ' + xhr.status);
-                    return;
-                }
-
-                json = JSON.parse(xhr.responseText);
-
-                if (!json || typeof json.location != 'string') {
-                    failure('Invalid JSON: ' + xhr.responseText);
-                    return;
-                }
-
-                success(json.location);
+                    // call the callback and populate the Title field with the file name
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+                reader.readAsDataURL(file);
             };
 
-            formData = new FormData();
-            formData.append('file', blobInfo.blob(), blobInfo.filename());
-
-            xhr.send(formData);
-        },
+            input.click();
+        }
     });
 </script>

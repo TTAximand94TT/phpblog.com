@@ -207,6 +207,12 @@
                                 <p>Category</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/admin/tags" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Tags</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">

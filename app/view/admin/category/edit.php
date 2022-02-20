@@ -21,9 +21,9 @@
 
                             <div class="form-group">
                                 <label for="editor">Description</label>
-                                <textarea id="editor" name="description">
-                                    <?=$category['description']?>
-                                </textarea>
+                                <div>
+                                    <textarea class="form-control" id="editor" name="description"><?=$category['description']?></textarea>
+                                </div>
                             </div>
                             <input type="hidden" name="id" value="<?=$category['id']?>">
                     </div>

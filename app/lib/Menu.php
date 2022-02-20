@@ -11,15 +11,17 @@ use app\model\CategoryModel;
 class Menu{
     public $data;
 
+    public string $templatePath;
+
     public function __construct(){
+        $this->templatePath = ROOT.'app/view/widgets/menu.php';
+        $this->data = R::findAll('category');
         $this->run();
     }
 
 
     public function run(){
         //$this->data = R::getAssoc('SELECT * FROM category');
-        $this->data = R::findAll('category');
-
         echo $this->getMenuHTML();
     }
 
@@ -37,18 +39,18 @@ class Menu{
 
     public function getMenuHTML(){
         $str = '';
-        foreach($this->data as $category){
-            $str .= $this->catToTemple($category);
+        foreach($this->data as $item){
+            $str .= $this->catToTemple($item, $this->templatePath);
         }
         return $str;
     }
 
 
     /////////////////////////////////////////////
-
-    public function catToTemple($category){
+    //ROOT.'app/view/widgets/menu.php'
+    public function catToTemple($item, $path){
         ob_start();
-        require(ROOT.'app/view/widgets/menu.php');
+        require("$path");
         return ob_get_clean();
     }
 

@@ -5,16 +5,22 @@ namespace app\model;
 
 
 use app\core\Model;
+use app\core\traits\updateUser;
 use R;
 
 class UserModel extends Model
 {
+    use updateUser;
+
     public array $attributes = [
         'login'=>'',
         'password'=>'',
         'email'=>'',
         'name'=>'',
-        'role'=>'user'
+        'activation'=>'',
+        'role'=>'user',
+        'avatar'=>''
+
     ];
 
 
@@ -80,5 +86,26 @@ class UserModel extends Model
     public function getUser($id){
         return $user = R::load('users', $id);
     }
+
+
+    /* new */
+    /*
+    public function userLogin(){
+        $login = !empty(trim($_POST['login'])) ? trim($_POST['login']) : null;
+        $password = !empty(trim($_POST['password'])) ? trim($_POST['password']) : null;
+        if($login && $password){
+            $user = \R::findOne('users', 'login = ? LIMIT 1', [$login]);
+            if($user){
+                if(password_verify($password, $user['password'])){
+                    foreach($user as $key => $value){
+                        if($key!='password') $_SESSION['user'][$key] = $value;
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    */
 
 }

@@ -47,7 +47,7 @@
                             <tr>
                                 <td><?=$post['id']?></td>
                                 <td><?=$post['title']?></td>
-                                <td><?=$post['category_id']?></td>
+                                <td><?=$post['category_name']?></td>
                                 <td><?=$post['is_published']?></td>
                                 <td><?=$post['user_id']?></td>
                                 <td><?=$post['rating']?></td>

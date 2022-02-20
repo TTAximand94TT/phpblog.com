@@ -34,7 +34,7 @@
                                     <td><?=$category['create_date']?></td>
                                     <td>
                                         <a class="btn btn-primary" href="/admin/category/edit?id=<?=$category['id']?>"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-secondary" href=""><i class="fas fa-book-open"></i></a>
+                                        <a class="btn btn-secondary" href="/main/category?id=<?=$category['id']?>"><i class="fas fa-book-open"></i></a>
                                         <a class="btn btn-danger" href="/admin/category/delete?id=<?=$category['id']?>"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>

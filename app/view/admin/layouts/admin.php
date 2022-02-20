@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="<?=ADMIN_VIEW?>plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?=ADMIN_VIEW?>dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?=ADMIN_VIEW?>plugins/summernote/summernote-bs4.min.css">
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini">
@@ -51,7 +52,9 @@
 <!-- /wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-
+<?php foreach($scripts as $script){
+    echo $script;
+}?>
 <!-- jQuery -->
 <script src="<?=ADMIN_VIEW?>plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

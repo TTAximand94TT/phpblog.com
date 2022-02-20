@@ -26,7 +26,6 @@ spl_autoload_register(function($class){
 
 $query = $_SERVER['QUERY_STRING'];
 
-
 new App;
 
 //admin routers

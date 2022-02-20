@@ -4,23 +4,13 @@
 namespace app\controller;
 
 
+use app\core\Pagination;
 use app\model\PostModel;
 use R;
 
 class PostController extends AppController
 {
-
-    /*
-    public function single(){
-        if(!empty($_GET['id'])){
-            $id = $_GET['id'];
-            $post = R::findOne('posts', "id = ? LIMIT 1", [$id]);
-            $comments = R::findAll('comments', 'post_id = ?', [$id]);
-            $commentCount = R::count('comments', 'WHERE post_id = ?', [$id]);
-            $this->setVars(compact('post', 'comments', 'commentCount'));
-        }
-    }
-    */
+    public string $layout = 'default';
 
     public function like(){
         if(!empty($_SESSION['user'])){
@@ -47,6 +37,24 @@ class PostController extends AppController
         }else{
             redirect('/');
         }
+    }
+
+    public function bookmark(){
+        $bookmark = new PostModel();
+        if(!empty($_SESSION['user'])){
+            $userId = $_SESSION['user']['id'];
+            $postId = $_GET['id'];
+            if(!($res = R::findOne('posts_users_bookmarks', "user_id = $userId AND post_id = $postId LIMIT 1"))){
+                $bookmark->saveBookmark($postId, $userId);
+            }else{
+                $bookmark->deleteBookmark($postId, $userId);
+            }
+            redirect('/user/main/bookmarks');
+        }
+    }
+
+    public function images(){
+
     }
 
 

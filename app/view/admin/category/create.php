@@ -21,9 +21,9 @@
 
                             <div class="form-group">
                                 <label for="editor">Description</label>
-                                <textarea id="editor" name="description">
-
-                                </textarea>
+                                <div>
+                                    <textarea class="form-control" id="editor" name="description"></textarea>
+                                </div>
                             </div>
 
                     </div>

@@ -24,6 +24,7 @@
                                 <th>Email</th>
                                 <th>Register date</th>
                                 <th>Role</th>
+                                <th>Verification</th>
                                 <th>Management</th>
                             </tr>
                             </thead>
@@ -36,6 +37,11 @@
                                 <td><?=$user['email']?></td>
                                 <td><?=$user['register_date']?></td>
                                 <td><?=$user['role']?></td>
+                                <?php if($user['verification']==1):?>
+                                    <td>Yes</td>
+                                <?php else:?>
+                                    <td>No</td>
+                                <?php endif;?>
                                 <td>
                                     <a class="btn btn-primary" href="/admin/users/edit?id=<?=$user['id']?>"><i class="fa fa-edit"></i></a>
                                     <a class="btn btn-secondary" href="/admin/users/profile?id=<?=$user['id']?>"><i class="fas fa-address-card"></i></a>

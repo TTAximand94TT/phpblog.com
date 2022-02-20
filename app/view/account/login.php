@@ -1,20 +1,25 @@
+<article>
+    <div class="heading">
+        <h2>Login</h2>
+    </div>
+    <div class="content">
+        <form action="/account/login" class="login-form" method="post" enctype="multipart/form-data">
+            <div class="form-control">
+                <label class="form-label">Login</label><br>
+                <input name="login" class="form-input" type="text">
 
-<div class="container mt-5">
-    <div class="container">
-        <form method="post" action="/account/login" id="login-form">
-            <div class="mb-3 input-control">
-                <label for="login" class="form-label">Login:</label>
-                <input type="text" name="login" class="form-control form-input" id="login" required>
-                <small id="error"></small>
             </div>
-            <div class="mb-3 input-control">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" name="password" id="password" class="form-control form-input" required>
+            <div class="form-control">
+                <label class="form-label">Password</label>
+                <input name="password" class="form-input" type="password">
             </div>
-                <small id="error"></small>
-            <div class="mb-3">
-                <input type="submit" class="btn btn-primary" value="Login">
+            <div class="form-control login-row">
+                <button class="btn" type="submit">Submit</button>
             </div>
         </form>
+        <div class="form-control end-row">
+            <a href="">Forgot Password</a>
+            <a href="/account/registration">Create new account</a>
+        </div>
     </div>
-</div>
+</article>
