@@ -1,6 +1,6 @@
 composer.phar
 /vendor/
-/public/files/img
+public/files/img/
 tmp/cache/
 public/js/jquery-3.6.0.js
 public/test
