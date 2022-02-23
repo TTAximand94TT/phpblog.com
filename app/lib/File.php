@@ -39,7 +39,7 @@ class File
     //delete image
     public function delete($name,$dir){
         $path = FILES.$dir.$name;
-        if(file_exists($path) && $name!=''){
+        if(file_exists($path) && $name!='' && $name!='default.jpg'){
             if(unlink($path)){
                 return true;
             }

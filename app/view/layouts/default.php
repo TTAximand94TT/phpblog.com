@@ -17,6 +17,7 @@
   	<link rel="stylesheet" href="/public/css/zerogrid.css">
 	<link rel="stylesheet" href="/public/css/style.css">
     <link rel="stylesheet" href="/public/css/responsive.css">
+    <link rel="stylesheet" href="/public/css/mystyle.css">
 	<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 	<link href='/public/img/favicon.ico' rel='icon' type='image/x-icon'/>
 

@@ -21,21 +21,9 @@ class Menu{
 
 
     public function run(){
-        //$this->data = R::getAssoc('SELECT * FROM category');
         echo $this->getMenuHTML();
     }
 
-    /*
-    public function getMenuHTML(){
-        echo "<ul class='nav flex-column'>";
-        foreach($this->data as $category){
-            echo "<li class='nav-item'>
-                      <a title='{$category['description']}' class='nav-link' href='/main/category'>{$category['title']}</a>
-                  </li>";
-        }
-        echo "</ul>";
-    }
-    */
 
     public function getMenuHTML(){
         $str = '';

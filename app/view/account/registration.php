@@ -3,7 +3,17 @@
         <h2>Registration</h2>
     </div>
     <div class="content">
-        <form action="/account/registration" id="registration-form" method="post" enctype="multipart/form-data">
+        <form action="/account/registration" id="registration-form" method="post" novalidate enctype="multipart/form-data">
+
+            <!--  ERRORS  -->
+            <?php if(!empty($_SESSION['errors'])):?>
+                <div class="error-block">
+                    <?=$_SESSION['errors'];
+                    unset($_SESSION['errors']);?>
+                </div>
+            <?php endif;?>
+            <!--  ERRORS END  -->
+
             <div class="form-control">
                 <label class="form-label">Login</label><br>
                 <input id="login" name="login" class="form-input" type="text" required minlength="3">
@@ -40,3 +50,6 @@
         </form>
     </div>
 </article>
+
+
+<script src="/public/js/validation/register-validation.js"></script>

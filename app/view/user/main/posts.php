@@ -59,7 +59,7 @@
             <div class='buttons'>
                 <a class='menu-btn' onclick="showBlock()" href="javascript:void(0);" tabindex="1">Edit</a>
             </div>
-            <div class='edits-menu'>
+            <div class='edits-menu' id="<?=$post['id']?>">
                 <a class="btn" href="">Published</a>
                 <a class="btn" href="/user/post/edit/?id=<?=$post['id']?>"><i class="fas fa-book-open"></i> Edit</a>
                 <a class="btn" href="/user/post/delete/?id=<?=$post['id']?>"><i class="fa fa-trash"></i> Delete</a>
@@ -71,8 +71,6 @@
         <?=$pageno;?>
     <?php endif?>
 <?php endif;?>
-
-
 
 <script>
     function showBlock(){

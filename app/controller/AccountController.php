@@ -26,24 +26,34 @@ class AccountController extends AppController
             $user = new UserModel();
             $file = new File();
             $data = $_POST;
-            /////////////////////////////// activation message  //////////////////////////////
-            $email = $data['email'];
-            $activation=md5($email.time());
-            $data['activation'] = $activation;
-            Mail::verificationMail($email, $activation);
-            //////////////////////////////// activation message end  ////////////////////////
-            ///////////////////////////////  avatar  /////////////////////////////////////
-            if($_FILES && $_FILES['avatar']['error']==UPLOAD_ERR_OK){
-                $file_name = time().$_FILES['avatar']['name'];
-                $file->upload($_FILES['avatar']['name'], $_FILES['avatar']['tmp_name'], 'img/user_avatar/');
-                $data['avatar'] = $file_name;
-            }
-            /////////////////////////////// avatar end  //////////////////////////////////
 
             $user->load($data);
-            $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
-            $user->save('users');
-            redirect('/account/verification');
+
+            if(!$user->validate($data) || !$user->checkUnique()){
+                $user->getErrorsMessage();
+                redirect();
+            }else{
+
+                /////////////////////////////// activation message  //////////////////////////////
+                $email = $data['email'];
+                $activation=md5($email.time());
+                $data['activation'] = $activation;
+                Mail::verificationMail($email, $activation);
+                //////////////////////////////// activation message end  ////////////////////////
+                ///////////////////////////////  avatar  /////////////////////////////////////
+                if($_FILES && $_FILES['avatar']['error']==UPLOAD_ERR_OK){
+                    $file_name = time().$_FILES['avatar']['name'];
+                    $file->upload($_FILES['avatar']['name'], $_FILES['avatar']['tmp_name'], 'img/user_avatar/');
+                    $data['avatar'] = $file_name;
+                }
+                /////////////////////////////// avatar end  //////////////////////////////////
+                //update or del
+                $user->load($data);
+                $user->attributes['password'] = password_hash($user->attributes['password'], PASSWORD_DEFAULT);
+                $user->save('users');
+                //$user->getSuccessMessage("You success complete!");
+                redirect('/account/verification');
+            }
         }
     }
 

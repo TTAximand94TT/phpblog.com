@@ -23,12 +23,28 @@ class UserModel extends Model
 
     ];
 
+    public array $validationRules = [
+        "required"=>[
+            ["login"],["password"],["email"],["name"],
+        ],
+        "email"=>[
+            ["email"]
+        ],
+        "lengthMin"=>[
+            ["password", 8], ["login", 3], ["name", 3]
+        ]
+    ];
 
-    public function checkUnique(): bool
+    public function checkUnique()
     {
         $u = \R::findOne('users', 'login = ? OR email = ? LIMIT 1',
-                        [$this->attributes['login'], $this->attributes['email']]);
+            [$this->attributes['login'], $this->attributes['email']]);
         if($u){
+            if($u->login == $this->attributes['login']){
+                $this->errors['unique'][] = "There is already a user with the same login.";
+            }elseif($u->email == $this->attributes['email']){
+                $this->errors['unique'][] = "There is already a user with the same email.";
+            }
             return false;
         }else{
             return true;

@@ -7,14 +7,17 @@ namespace app\core;
 use app\core\traits\validation;
 use PDO;
 use R;
+use Valitron\Validator;
 
 abstract class Model
 {
-    use validation;
+
 
     protected $pdo;
     protected $table;
     public array $attributes = [];
+    public array $validationRules = [];
+    public array $errors = [];
 
     public function __construct(){
         $this->pdo = DB::instance();
@@ -58,6 +61,39 @@ abstract class Model
         R::exec($sql);
     }
 
+    public function getAll(){
+       return R::findAll("$this->table");
+    }
+
+    public function getOne($id){
+        return R::findOne("$this->table","id=$id");
+    }
+
+    public function validate($data){
+        $validator = new Validator($data);
+        $validator->rules($this->validationRules);
+        if($validator->validate()){
+            return true;
+        }
+        $this->errors = $validator->errors();
+    }
+
+
+    public function getErrorsMessage(){
+        $errorsBlock = "<ul class='errors'>";
+            foreach($this->errors as $errors){
+                foreach($errors as $error){
+                    $errorsBlock .= "<li>$error</li>";
+                }
+            }
+        $errorsBlock .= "</ul>";
+        return $_SESSION['errors']=$errorsBlock;
+    }
+
+    public function getSuccessMessage($message){
+        return $_SESSION['success'] = $message;
+    }
+
     /*
     public function update($id, $params, $field, $row, $value){
         $sql = "UPDATE $this->table SET $row='$value' WHERE $field = $id";
@@ -69,6 +105,7 @@ abstract class Model
     */
 
     // доделать валидацию, или полностью переделать
+    /*
     public function validation($data){
         $login = trim($data['login']);
         $password = trim($data['password']);
@@ -90,9 +127,10 @@ abstract class Model
         }else{
             return false;
         }
-    }
+    }*/
 
 
+    /*
     public function query($sql){
         return $this->pdo->execute($sql);
     }
@@ -134,6 +172,7 @@ abstract class Model
         $sql = "SELECT * FROM $this->table WHERE $row LIKE '%$str%'";
         return $this->pdo->query($sql);
     }
+    */
 
 
 

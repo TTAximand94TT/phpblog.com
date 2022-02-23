@@ -4,25 +4,26 @@ require('app/config/db.php');
 require('path.php');
 require('app/config/config.php');
 require('app/lib/function.php');
+require('vendor/autoload.php');
 
 const DEBUG = true;
 
-use app\core\ErrorHelper;
-use app\controller\PostController;
 use app\core\Router;
-use app\core\View;
 use app\core\App;
-
-
 
 date_default_timezone_set('Europe/Moscow');
 
+/**
+ * Class autoloader
+ */
+/*
 spl_autoload_register(function($class){
     $file = ROOT.str_replace('\\','/',$class).".php";
     if(file_exists($file)){
         require_once $file;
     }
 });
+*/
 
 $query = $_SERVER['QUERY_STRING'];
 
@@ -36,7 +37,6 @@ Router::add('^admin/?(?P<controller>[a-z-]+)/?(?P<action>[a-z-]+)?$', ['prefix'=
 
 Router::add('^user$', ['controller'=>'Main', 'action'=>'index', 'prefix'=>'user']);
 Router::add('^user/?(?P<controller>[a-z-]+)/?(?P<action>[a-z-]+)?$', ['prefix'=>'user']);
-
 
 //defaults route
 Router::add('^$', ['controller'=>'Main', 'action'=>'index']);
