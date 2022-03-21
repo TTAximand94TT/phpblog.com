@@ -34,6 +34,7 @@
 <?php require('includes/header.php')?>
 
 <!--------------Content--------------->
+<?php print_r($_SESSION);?>
 <section id="content">
 	<div class="wrap-content">
 		<div class="row block">

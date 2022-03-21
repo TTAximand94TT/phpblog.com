@@ -52,4 +52,3 @@
 </article>
 
 
-<script src="/public/js/validation/register-validation.js"></script>

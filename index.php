@@ -6,6 +6,7 @@ require('app/config/config.php');
 require('app/lib/function.php');
 require('vendor/autoload.php');
 
+const TIME_ACTIVATION_LINK = 60;
 const DEBUG = true;
 
 use app\core\Router;

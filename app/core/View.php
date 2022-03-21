@@ -46,7 +46,7 @@ class View
         if(is_array($vars)) {
             extract($vars);
         }
-        $fileView = ROOT.'app/view/'.$this->route['prefix'].$this->route['controller'].'/'.$this->view.'.php';      //тут баг, надо поправить!
+        $fileView = ROOT.'app/view/'.$this->route['prefix'].$this->route['controller'].'/'.$this->view.'.php';
         ///////////////////////////////////////////////
         ob_start('ob_gzhandler');
         header("Content-Encoding: gzip");
@@ -87,12 +87,6 @@ class View
         return $content;
 
     }
-
-    /*
-    protected function scriptsLoader($scripts){
-
-    }
-    */
 
 
 }

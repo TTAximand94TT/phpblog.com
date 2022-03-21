@@ -62,7 +62,11 @@ class UserModel extends Model
                         if($key!='password') $_SESSION['user'][$key] = $value;
                     }
                     return true;
+                }else{
+                    echo "false 1";
                 }
+            }else{
+                echo "false 2";
             }
         }
         return false;
@@ -103,6 +107,15 @@ class UserModel extends Model
         return $user = R::load('users', $id);
     }
 
+    public function ifIssetEmail($email){
+        return $user_email = R::exec("SELECT * FROM users WHERE email = '$email'");
+    }
+
+    public function resetPassword($hash_code, $email, $time_expire){
+        if(R::exec("INSERT INTO password_recovery(email, hash_code, time_expire) VALUES('$email', '$hash_code', $time_expire)")){
+            return true;
+        }
+    }
 
     /* new */
     /*

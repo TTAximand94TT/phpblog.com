@@ -10,7 +10,7 @@ return array($dsn,$name, $pass, $options);
 */
 
 return [
-    'dsn'=>'mysql:host=localhost;dbname=mvc_framework;charset=utf8',
+    'dsn'=>'mysql:host=localhost;dbname=phpblog;charset=utf8',
     'name'=>'root',
     'pass'=>'',
 ];

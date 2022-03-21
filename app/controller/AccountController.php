@@ -16,6 +16,8 @@ class AccountController extends AppController
 
     public string $layout = 'default';
 
+    public $errors = [];
+
     public function index(){
 
     }
@@ -79,7 +81,7 @@ class AccountController extends AppController
 
     public function login(){
         $menu = $this->navMenu;
-        $this->setVars(compact('menu'));
+        //$this->setVars(compact('menu'));
 
         if(!empty($_POST)){
             $user = new UserModel();
@@ -162,10 +164,77 @@ class AccountController extends AppController
         }
     }
 
+    //public function
+    public function createNewPassword(){
+        //$user = new UserModel();
+        if(!empty($_POST)){
+            //debug($_POST);
+            //exit();
+            $email = $_POST['email'];
+            if($_POST['password'] === $_POST['confirm_password']){
+                $new_pass = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                $result = R::exec("UPDATE users SET password = '$new_pass' WHERE email = '$email'");
+                if($result){
+                    redirect('/account/login');
+                }
+            }
+        }
+
+    }
+
     public function verification(){
 
     }
 
+    // reset forgot password
+    public function forgotpass(){
 
+    }
+
+    public function findUserForReset(){
+        $user = new UserModel();
+        if(!empty($_POST)){
+            $email = $_POST['email'];
+            $userInfo = $user->ifIssetEmail($email);
+            if($userInfo!=0){
+                //////////////////////////////////////////
+                $expire_time = time() + TIME_ACTIVATION_LINK;
+                $hash_code = md5($expire_time.$email);
+                if($user->resetPassword($hash_code, $email, $expire_time)){
+                    Mail::resetPasswordMail($email, $hash_code);
+                    redirect('/account/resetpass');
+                }
+                ////////////////////////////////////////////
+            }else{
+                redirect();
+            }
+        }
+    }
+
+    public function reset(){
+        if(!empty($_GET['code'])){
+            $hash_code = $_GET['code'];
+            $reset = R::findOne('password_recovery', "WHERE hash_code = '$hash_code' LIMIT 1");
+            //$reset = R::getAssoc("SELECT * FROM password_recovery WHERE hash_code = '$hash_code' LIMIT 1");
+            $current_time = time();
+
+            if($reset && $reset['time_expire']-$current_time > 0){
+                if($reset['hash_code']==$hash_code){
+                    redirect('/account/newpassword?email='.$reset['email']);
+                }
+            }else{
+                redirect();
+            }
+
+        }
+    }
+
+    public function resetpass(){
+
+    }
+
+    public function newpassword(){
+
+    }
 
 }

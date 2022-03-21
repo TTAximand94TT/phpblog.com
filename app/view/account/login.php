@@ -18,7 +18,7 @@
             </div>
         </form>
         <div class="form-control end-row">
-            <a href="">Forgot Password</a>
+            <a href="/account/forgotpass">Forgot Password</a>
             <a href="/account/registration">Create new account</a>
         </div>
     </div>
